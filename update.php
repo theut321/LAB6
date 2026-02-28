@@ -10,9 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $model = $_POST['model'];
     $price = $_POST['price'];
     $stock_quantity = $_POST['stock_quantity'];
-    $date_added = $_POST['date_added'];
     $update  = $conn-> prepare("UPDATE cpu SET brand= ?, generation=?, model= ?, price=?, stock_quantity=?, date_added=? WHERE id=?");
-    $update->bind_param("sisdisi", $brand, $generation, $model, $price, $stock_quantity, $date_added, $id);
+    $update->bind_param("sisdii", $brand, $generation, $model, $price, $stock_quantity, $id);
     $update->execute();
     header("Location: read.php");
     exit;

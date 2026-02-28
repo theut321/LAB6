@@ -1,6 +1,7 @@
 <?php
 include 'db.php';
 $read = $conn->query("SELECT * FROM cpu");
+$total_items = $read->num_rows;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,13 +23,13 @@ $read = $conn->query("SELECT * FROM cpu");
     while($row = $read->fetch_assoc()): 
     ?>
     <tr>
-        <td><?= $row['id'] ?></td>>
-        <td><?= $row['brand'] ?></td>>
-        <td><?= $row['generation'] ?></td>>
-        <td><?= $row['model'] ?></td>>
-        <td><?= $row['price'] ?></td>>
-        <td><?= $row['stock_quantity'] ?></td>>
-        <td><?= $row['date_added'] ?></td>>
+        <td><?= htmlspecialchars($row['id'] )?></td>
+        <td><?= htmlspecialchars($row['brand'] )?></td>
+        <td><?= htmlspecialchars($row['generation'])?></td>
+        <td><?= htmlspecialchars($row['model'])?></td>
+        <td><?= htmlspecialchars($row['price']) ?></td>
+        <td><?= htmlspecialchars($row['stock_quantity']) ?></td>
+        <td><?= htmlspecialchars($row['date_added']) ?></td>
         <td>
             <a href="delete.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
             <a href="update.php?id=<?= $row['id'] ?>" >Update</a>
@@ -37,6 +38,8 @@ $read = $conn->query("SELECT * FROM cpu");
     <?php endwhile; 
     ?>
 </table>
-
+    <?php
+    echo "<p>Total items: "  .$total_items . "</p>"; 
+    ?>
 </body>
 </html>

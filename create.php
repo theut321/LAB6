@@ -9,41 +9,52 @@
 </head>
 <body>
     <h2>Insert CPU Information</h2>
-        <form method="post">
+        <form method="post" action="">
 
             <label for ="brand">Brand:</label><br>
-                <input type="text" id="brand" name="brand"><br>
-            <label for ="generation">Generation:</label><br>
-                <input type="text" id="generation" name="generation"><br>
-            <label for ="model">Model:</label><br>
-                <input type="text" id="model" name="model"><br>
-            <label for ="price">Price:</label><br>
-                <input type="text" id="price" name="price"><br>
-            <label for ="stock_quantity">Stock Quantity:</label><br>
-                <input type="text" id="stock_quantity" name="stock_quantity"><br>
-            <label for ="date_added">Date Added:</label><br>
-                <input type="text" id="date_added" name="date_added"><br>
-            <input type="submit" value="Submit">
-        </form>
-    <?php
-        include 'db.php';
-        $brand = $_POST['brand'];
-        $generation = $_POST['generation'];
-        $model = $_POST['model'];
-        $price = $_POST['price'];
-        $stock_quantity = $_POST['stock_quantity'];
-        $date_added = $_POST['date_added'];
+                <input type="text" id="brand" name="brand"required> <br>
 
-        $insert = "INSERT INTO cpu VALUES (NULL,'$brand', '$generation', '$model' , '$price', '$stock_quantity', '$date_added')";
+            <label for ="generation">Generation:</label><br>
+                <input type="number" id="generation" name="generation"required><br>
+
+            <label for ="model">Model:</label><br>
+                <input type="text" id="model" name="model"required><br>
+
+            <label for ="price">Price:</label><br>
+                <input type="number" id="price" name="price"required><br>
+
+            <label for ="stock_quantity">Stock Quantity:</label><br>
+                <input type="number" id="stock_quantity" name="stock_quantity"required><br>
+
+            <input type="submit" name="submit" value="Submit">
+        </form>
+
+    <?php
+
+    if(isset($_POST['submit'])){
+        include 'db.php';
+
+
+        $brand = $_POST['brand'];
+        $generation = filter_var($_POST['generation'],FILTER_VALIDATE_INT);
+        $model = $_POST['model'];
+        $price = filter_var($_POST['price'], FILTER_VALIDATE_FLOAT);
+        $stock_quantity = filter_var($_POST['stock_quantity'],FILTER_VALIDATE_INT);
+
+        if($generation === false || $price === false || $stock_quantity === false){
+            echo"<p>Error: Invalid inputs provided</p>";
+        } else {
+        $insert = "INSERT INTO cpu VALUES (NULL,'$brand', '$generation', '$model' , '$price', '$stock_quantity', CURRENT_DATE)";
+        
 
         if (mysqli_query($conn, $insert)) {
-            echo "Employee inserted successfully.";
+            echo "<p>Item inserted successfully. </p>";
         } else {
-            echo "Error: " . $insert . "<br>" . mysqli_error($conn);
+            echo "<p>Error: " . $insert . "<br>" . mysqli_error($conn) . "</p>";
         }
-
+        }
         mysqli_close($conn);
-
+    }
        
 
     ?>
