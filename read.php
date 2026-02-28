@@ -27,10 +27,11 @@ $read = $conn->query("SELECT * FROM cpu");
         <td><?= $row['price'] ?></td>>
         <td><?= $row['stock_quantity'] ?></td>>
         <td><?= $row['date_added'] ?></td>>
+            <a href="delete.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
     </tr>
     <?php endwhile; 
     ?>
 </table>
-<a hre= "delete.php">Delete CPU</a>
+
 </body>
 </html>
