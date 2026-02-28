@@ -17,10 +17,19 @@ $total_items = $read->num_rows;
      <a href="create.php">Add New</a>
     <table>
         <tr>
-            <th>ID</th><th>Brand</th><th>Generation</th><th>Model</th><th>Price</th><th>Stock Quantity</th><th>Date Added</th><th>Actions</th>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Generation</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Date Added</th>
+            <th>Actions</th>
     </tr>
     <?php
     while($row = $read->fetch_assoc()): 
+        $timestamp = strtotime($row['date_added']);
+        $formatted_date = date('F j, Y', $timestamp);
     ?>
     <tr>
         <td><?= htmlspecialchars($row['id'] )?></td>
