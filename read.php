@@ -31,5 +31,6 @@ $read = $conn->query("SELECT * FROM cpu");
     <?php endwhile; 
     ?>
 </table>
+<a hre= "delete.php">Delete CPU</a>
 </body>
 </html>
